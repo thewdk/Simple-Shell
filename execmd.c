@@ -1,5 +1,10 @@
 #include "shell.h"
 
+/**
+ * execmd - Execute a command given an array of arguments.
+ * @argv: Array of arguments.
+ */
+
 void execmd(char **argv)
 {
 	pid_t mypid;

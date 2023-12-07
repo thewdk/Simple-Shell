@@ -2,14 +2,40 @@
 
 void execmd(char **argv)
 {
-	char *command = "/bin/ls";
+	pid_t mypid;
+	int status;
 
-	*argv[] = {command, NULL};
+	mypid = fork();
 
-	if (execve(command, argv, NULL) == -1)
+	if (mypid == 0)
 	{
-		perror("Error:");
-		return (1);
+		if (strcmp(argv[0], "ls") == 0)
+		{
+			execve("/bin/ls", argv, environ);
+		}
+		else
+			execve(argv[0], argv, environ);
+
+		write(2, "./hsh:", 6);
+		write(2, " 1: ", strlen(" 1: "));
+		write(2, argv[0], strlen(argv[0]));
+		write(2, ": not found\n", strlen(": not found\n"));
+		exit(EXIT_FAILURE);
 	}
-	return (0);
+	else if (mypid < 0)
+	{
+		exit(EXIT_FAILURE);
+	}
+	else
+	{
+		int exit_status;
+
+		waitpid(mypid, &status, 0);
+		if (WIFEXITED(status))
+		{
+			exit_status = WIFEXITED(status);
+			if (exit_status > 0 && (!isatty(STDIN_FILENO)))
+				exit(exit_status);
+		}
+	}
 }

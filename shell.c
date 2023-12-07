@@ -5,6 +5,7 @@ int main(int argc, char **argv)
 	char *token;
 	int bytes = 0;
 	int i = 0;
+	int j = 0;
 	char *line = NULL;
 	size_t buf = 0;
 
@@ -13,7 +14,8 @@ int main(int argc, char **argv)
 	while (1)
 	{
 		argv = malloc(sizeof(char *) * 50);
-		write(1, "Sshell$ ", 8);
+		if (isatty(STDIN_FILENO) != 0)
+			write(1, "($) ", 4);
 
 		bytes = getline(&line, &buf, stdin);
 		if (bytes == -1)
@@ -31,8 +33,7 @@ int main(int argc, char **argv)
 			token = strtok(NULL, " \n");
 		}
 		argv[i] = NULL;
-		
-		execmd(argv);
+
 		if (argv[0] == NULL)
 		{
 			freepointer(argv);
@@ -43,13 +44,17 @@ int main(int argc, char **argv)
 			freepointer(argv);
 			break;
 		}
-		i = 0;
-		while (argv[i])
+		if (strcmp(argv[0], "env") == 0)
 		{
-			write(1, argv[i], strlen(argv[i]));
-			write(1, "\n", 1);
-			i++;
+			while (environ[j])
+			{
+				write(1, environ[j],  strlen(environ[j]));
+				write(1, "\n",  1);
+				j++;
+			}
+			continue;
 		}
+		execmd(argv);
 		freepointer(argv);
 	}
 	free(line);

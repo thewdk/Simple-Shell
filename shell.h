@@ -19,5 +19,8 @@ void execmd(char **argv);
 extern char **environ;
 void exit_with_status(int status, char **argv, char *line);
 int valid_exit_status(const char *str);
+char *_getenv(const char *name);
+int _setenv(const char *name, const char *value, int overwrite);
+int _unsetenv(const char *name);
 
 #endif

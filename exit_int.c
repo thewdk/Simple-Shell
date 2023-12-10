@@ -9,14 +9,29 @@ void exit_with_status(int status, char **argv, char *line)
 
 int valid_exit_status(const char *str)
 {
-	int i;
-
-	for (i = 0; str[i] != '\0'; ++i)
+	if (str == NULL || *str == '\0')
 	{
-		if (!isdigit(str[i]))
+		return (0);
+	}
+	while (isspace(*str))
+	{
+		str++;
+	}
+	if (*str == '\0')
+	{
+		return (0);
+	}
+	if (*str == '+' || *str == '-')
+	{
+		str++;
+	}
+	while (*str != '\0')
+	{
+		if (!isdigit((unsigned char)*str))
 		{
 			return (0);
 		}
+		str++;
 	}
 	return (1);
 }

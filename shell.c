@@ -3,6 +3,7 @@
 /**
  * main - Entry point for the shell program.
  * @argc: Number of command-line arguments.
+ B
  * @argv: Array of command-line arguments.
  * Return: Always 0.
  */
@@ -49,21 +50,39 @@ int main(int argc, char **argv)
 		if (strcmp(argv[0], "exit") == 0)
 		{
 			int exit_status = 0;
+			char *arg = argv[1];
 
-			if (argv[1] != NULL && valid_exit_status(argv[1]))
+			if (arg != NULL)
 			{
-				exit_status = atoi(argv[1]);
+				int valid = 1;
+				int i;
+
+				for (i = 0; arg[i] != '\0'; i++)
+				{
+					if (!isdigit((unsigned char)arg[i]))
+					{
+						valid = 0;
+						break;
+					}
+				}
+				if (!valid)
+				{
+					write(2, "./hsh:", 6);
+					write(2, " 2: ", 4);
+					write(2, argv[0], strlen(argv[0]));
+					write(2, ": Illegal nuber: ", strlen(": Illegal nuber: "));
+					write(2, arg, strlen(arg));
+					write(2, "\n", strlen("\n"));
+					exit_status = 2;
+				}
+				else
+				{
+					exit_status = atoi(arg);
+				}
 			}
-			else
-			{
-				write(1, "./hsh: ", 7);
-				write(1, argv[0], strlen(argv[0]));
-				write(1, ": ", 2);
-				write(1, argv[1], strlen(argv[1]));
-				write(1, ": numeric argument required\n", strlen(": numeric argument required\n"));
-				exit_status = 2;
-			}
-			exit_with_status(exit_status, argv, line);
+			freepointer(argv);
+			free(line);
+			exit(exit_status);
 		}
 		if (strcmp(argv[0], "env") == 0)
 		{
@@ -73,6 +92,7 @@ int main(int argc, char **argv)
 				write(1, "\n",  1);
 				j++;
 			}
+			freepointer(argv);
 			continue;
 		}
 		execmd(argv);

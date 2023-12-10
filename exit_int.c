@@ -1,10 +1,10 @@
 #include "shell.h"
 
-void exit_with_status(int status, char **argv, char *line)
+void exit_with_status(int exit_status, char **argv, char *line)
 {
 	freepointer(argv);
 	free(line);
-	exit(status);
+	exit(exit_status);
 }
 
 int valid_exit_status(const char *str)

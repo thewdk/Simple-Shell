@@ -12,6 +12,7 @@
 #include <fcntl.h>
 #include <ctype.h>
 #include <errno.h>
+#include <stdbool.h>
 
 int main(int argc, char **argv);
 void freepointer(char **argv);
@@ -22,5 +23,7 @@ int valid_exit_status(const char *str);
 char *_getenv(const char *name);
 int _setenv(const char *name, const char *value, int overwrite);
 int _unsetenv(const char *name);
+char *dtstrtok(char *str, const char *delimiters);
+char *dtstrchr(const char *str, int ch);
 
 #endif

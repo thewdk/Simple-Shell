@@ -48,22 +48,28 @@ int main(int argc, char **argv)
 		}
 		if (strcmp(argv[0], "exit") == 0)
 		{
-			int exit_status = 0;
-
-			if (argv[1] != NULL && valid_exit_status(argv[1]))
+			if (argv[1] != NULL)
 			{
-				exit_status = atoi(argv[1]);
+				int exit_status = atoi(argv[1]);
+				if (exit_status < 0 || exit_status > 255)
+				{
+					write(2, "./hsh: ", 7);
+					write(2, argv[0], strlen(argv[0]));
+					write(2, ": ", 2);
+					write(2, argv[1], strlen(argv[1]));
+					write(2, ": numeric argument required\n", strlen(": numeric argument required\n"));
+					exit(EXIT_FAILURE);
+				}
+				else
+				{
+					exit(exit_status);
+				}
+				exit_with_status(exit_status, argv, line);
 			}
 			else
 			{
-				write(1, "./hsh: ", 7);
-				write(1, argv[0], strlen(argv[0]));
-				write(1, ": ", 2);
-				write(1, argv[1], strlen(argv[1]));
-				write(1, ": numeric argument required\n", strlen(": numeric argument required\n"));
-				exit_status = 2;
+				break;
 			}
-			exit_with_status(exit_status, argv, line);
 		}
 		if (strcmp(argv[0], "env") == 0)
 		{

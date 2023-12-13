@@ -18,6 +18,7 @@ int main(int argc, char **argv)
 	size_t buf = 0;
 
 	(void)argc;
+	argv = NULL;
 
 	while (1)
 	{
@@ -28,7 +29,7 @@ int main(int argc, char **argv)
 		bytes = getline(&line, &buf, stdin);
 		if (bytes == -1)
 		{
-			freepointer(argv);
+			freepointer(&argv);
 			break;
 		}
 		i = 0;
@@ -44,7 +45,7 @@ int main(int argc, char **argv)
 
 		if (argv[0] == NULL)
 		{
-			freepointer(argv);
+			freepointer(&argv);
 			continue;
 		}
 		if (strcmp(argv[0], "exit") == 0)
@@ -80,7 +81,7 @@ int main(int argc, char **argv)
 					exit_status = atoi(arg);
 				}
 			}
-			freepointer(argv);
+			freepointer(&argv);
 			free(line);
 			exit(exit_status);
 		}
@@ -92,11 +93,11 @@ int main(int argc, char **argv)
 				write(1, "\n",  1);
 				j++;
 			}
-			freepointer(argv);
+			freepointer(&argv);
 			continue;
 		}
 		execmd(argv);
-		freepointer(argv);
+		freepointer(&argv);
 	}
 	free(line);
 	return (0);

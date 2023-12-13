@@ -57,11 +57,11 @@ int main(int argc, char **argv)
 			if (arg != NULL)
 			{
 				int valid = 1;
-				int i;
+				int n;
 
-				for (i = 0; arg[i] != '\0'; i++)
+				for (n = 0; arg[n] != '\0'; n++)
 				{
-					if (!isdigit((unsigned char)arg[i]))
+					if (!isdigit((unsigned char)arg[n]))
 					{
 						valid = 0;
 						break;

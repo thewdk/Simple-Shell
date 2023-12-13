@@ -5,7 +5,7 @@
  * @argv: Array of arguments.
  */
 
-void execmd(char **argv)
+void execmd(char **tokens)
 {
 	pid_t mypid;
 	int status;
@@ -14,16 +14,16 @@ void execmd(char **argv)
 
 	if (mypid == 0)
 	{
-		if (strcmp(argv[0], "ls") == 0)
+		if (strcmp(tokens[0], "ls") == 0)
 		{
-			execve("/bin/ls", argv, environ);
+			execve("/bin/ls", tokens, environ);
 		}
 		else
-			execve(argv[0], argv, environ);
+			execve(tokens[0], tokens, environ);
 
 		write(2, "./hsh:", 6);
 		write(2, " 1: ", strlen(" 1: "));
-		write(2, argv[0], strlen(argv[0]));
+		write(2, tokens[0], strlen(tokens[0]));
 		write(2, ": not found\n", strlen(": not found\n"));
 		exit(EXIT_FAILURE);
 	}

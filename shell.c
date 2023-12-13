@@ -10,6 +10,7 @@
 
 int main(int argc, char **argv)
 {
+	char **tokens;
 	char *token;
 	int bytes = 0;
 	int i = 0;
@@ -18,40 +19,41 @@ int main(int argc, char **argv)
 	size_t buf = 0;
 
 	(void)argc;
-	argv = NULL;
+	(void)argv;
 
+	tokens = NULL;
 	while (1)
 	{
-		argv = malloc(sizeof(char *) * 3000);
+		tokens = malloc(sizeof(char *) * 3000);
 		if (isatty(STDIN_FILENO) != 0)
 			write(1, "($) ", 4);
 
 		bytes = getline(&line, &buf, stdin);
 		if (bytes == -1)
 		{
-			freepointer(&argv);
+			freepointer(&tokens);
 			break;
 		}
 		i = 0;
 		token = strtok(line, " \n");
 		while (token != NULL)
 		{
-			argv[i] = malloc(sizeof(char) * (strlen(token) + 1));
-			strcpy(argv[i], token);
+			tokens[i] = malloc(sizeof(char) * (strlen(token) + 1));
+			strcpy(tokens[i], token);
 			i++;
 			token = strtok(NULL, " \n");
 		}
-		argv[i] = NULL;
+		tokens[i] = NULL;
 
-		if (argv[0] == NULL)
+		if (tokens[0] == NULL)
 		{
-			freepointer(&argv);
+			freepointer(&tokens);
 			continue;
 		}
-		if (strcmp(argv[0], "exit") == 0)
+		if (strcmp(tokens[0], "exit") == 0)
 		{
 			int exit_status = 0;
-			char *arg = argv[1];
+			char *arg = tokens[1];
 
 			if (arg != NULL)
 			{
@@ -70,8 +72,8 @@ int main(int argc, char **argv)
 				{
 					write(2, "./hsh:", 6);
 					write(2, " 2: ", 4);
-					write(2, argv[0], strlen(argv[0]));
-					write(2, ": Illegal nuber: ", strlen(": Illegal nuber: "));
+					write(2, tokens[0], strlen(tokens[0]));
+					write(2, ": Illegal number: ", strlen(": Illegal number: "));
 					write(2, arg, strlen(arg));
 					write(2, "\n", strlen("\n"));
 					exit_status = 2;
@@ -81,11 +83,11 @@ int main(int argc, char **argv)
 					exit_status = atoi(arg);
 				}
 			}
-			freepointer(&argv);
+			freepointer(&tokens);
 			free(line);
 			exit(exit_status);
 		}
-		if (strcmp(argv[0], "env") == 0)
+		if (strcmp(tokens[0], "env") == 0)
 		{
 			while (environ[j])
 			{
@@ -93,11 +95,11 @@ int main(int argc, char **argv)
 				write(1, "\n",  1);
 				j++;
 			}
-			freepointer(&argv);
+			freepointer(&tokens);
 			continue;
 		}
-		execmd(argv);
-		freepointer(&argv);
+		execmd(tokens);
+		freepointer(&tokens);
 	}
 	free(line);
 	return (0);

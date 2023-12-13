@@ -5,18 +5,18 @@
  * @argv: Array of strings to be freed.
  */
 
-void freepointer(char ***argv)
+void freepointer(char ***tokens)
 {
 
 	int i = 0;
 
-	if (*argv != NULL)
+	if (*tokens != NULL)
 	{
-		for (i = 0; (*argv)[i] != NULL; i++)
+		for (i = 0; (*tokens)[i] != NULL; i++)
 		{
-			free((*argv)[i]);
+			free((*tokens)[i]);
 		}
-		free(*argv);
-		*argv = NULL;
+		free(*tokens);
+		*tokens = NULL;
 	}
 }

@@ -31,7 +31,7 @@ int main(int argc, char **argv)
 		bytes = getline(&line, &buf, stdin);
 		if (bytes == -1)
 		{
-			freepointer(&tokens);
+			freepointer(tokens);
 			break;
 		}
 		i = 0;
@@ -47,7 +47,7 @@ int main(int argc, char **argv)
 
 		if (tokens[0] == NULL)
 		{
-			freepointer(&tokens);
+			freepointer(tokens);
 			continue;
 		}
 		if (strcmp(tokens[0], "exit") == 0)
@@ -83,7 +83,7 @@ int main(int argc, char **argv)
 					exit_status = atoi(arg);
 				}
 			}
-			freepointer(&tokens);
+			freepointer(tokens);
 			free(line);
 			exit(exit_status);
 		}
@@ -95,11 +95,11 @@ int main(int argc, char **argv)
 				write(1, "\n",  1);
 				j++;
 			}
-			freepointer(&tokens);
+			freepointer(tokens);
 			continue;
 		}
 		execmd(tokens);
-		freepointer(&tokens);
+		freepointer(tokens);
 	}
 	free(line);
 	return (0);

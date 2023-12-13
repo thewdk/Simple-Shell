@@ -15,7 +15,7 @@
 #include <stdbool.h>
 
 int main(int argc, char **argv);
-void freepointer(char ***tokens);
+void freepointer(char **tokens);
 void execmd(char **argv);
 extern char **environ;
 void exit_with_status(int status, char **argv, char *line);

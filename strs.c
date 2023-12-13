@@ -56,3 +56,26 @@ int dtstrcmp(char *str1, char *str2)
 	}
 	return (0);
 }
+
+/**
+* dtstrcpy - copies a given string and returns a copy
+* @strng: pointer to chars to be copied
+* @x: number of chars to be copied
+* Return: pointer to copy
+**/
+char *dtstrcpy(char *strng, int x)
+{
+	int y;
+	char *res;
+
+	res = _malloc(sizeof(res) * (x + 1));
+	if (res == NULL)
+		return (NULL);
+	for (y = 0; y < x; y++)
+	{
+		res[y] = *strng;
+		strng++;
+	}
+	res[y] = '\0';
+	return (res);
+}

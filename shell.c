@@ -21,7 +21,7 @@ int main(int argc, char **argv)
 
 	while (1)
 	{
-		argv = malloc(sizeof(char *) * 50);
+		argv = malloc(sizeof(char *) * 3000);
 		if (isatty(STDIN_FILENO) != 0)
 			write(1, "($) ", 4);
 

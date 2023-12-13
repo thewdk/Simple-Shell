@@ -1,14 +1,15 @@
 #include "shell.h"
-
+void execmd(char **tokens, char *line);
 /**
  * execmd - Execute a command given an array of arguments.
  * @tokens: Array of arguments.
+ * @line: ===
  */
 
-void execmd(char **tokens)
+void execmd(char **tokens, char *line)
 {
 	pid_t mypid;
-	int status;
+	int exit_status;
 
 	mypid = fork();
 
@@ -19,7 +20,9 @@ void execmd(char **tokens)
 			execve("/bin/ls", tokens, environ);
 		}
 		else
+		{
 			execve(tokens[0], tokens, environ);
+		}
 
 		write(2, "./hsh:", 6);
 		write(2, " 1: ", strlen(" 1: "));
@@ -33,18 +36,20 @@ void execmd(char **tokens)
 	}
 	else
 	{
-		int exit_status;
+		int status;
 
 		waitpid(mypid, &status, 0);
 		if (WIFEXITED(status))
 		{
-			exit_status = WIFEXITED(status);
+			exit_status = WEXITSTATUS(status);
 			if (exit_status != 0 && (!isatty(STDIN_FILENO)))
 			{
-				/*exit(exit_status);*/
-				  exit_status = exit_status;
+				free(line);
+				freepointer(tokens);
+				exit(exit_status);
 			}
-				/*exit(exit_status);*/
+			/*exit(exit_status);*/
 		}
 	}
+
 }

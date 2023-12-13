@@ -109,7 +109,7 @@ int main(int argc, char **argv)
 			freepointer(tokens);
 			continue;
 		}
-		execmd(tokens);
+		execmd(tokens, line);
 		freepointer(tokens);
 	}
 	free(line);

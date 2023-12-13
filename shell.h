@@ -16,7 +16,7 @@
 
 int main(int argc, char **argv);
 void freepointer(char **tokens);
-void execmd(char **argv);
+void execmd(char **argv, char *line);
 extern char **environ;
 void exit_with_status(int status, char **argv, char *line);
 int valid_exit_status(const char *str);

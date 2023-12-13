@@ -22,7 +22,14 @@ int main(int argc, char **argv)
 
 	while (1)
 	{
-		tokens = malloc(sizeof(char *) * 3000);
+		i = 0;
+		tokens = malloc(sizeof(char *) * 100);
+		while (i < 100)
+		{
+			tokens[i] = NULL;
+			i++;
+		}
+		i = 0;
 		if (isatty(STDIN_FILENO) != 0)
 			write(1, "($) ", 4);
 
@@ -87,6 +94,7 @@ int main(int argc, char **argv)
 		}
 		if (strcmp(tokens[0], "env") == 0)
 		{
+			j = 0;
 			while (environ[j])
 			{
 				write(1, environ[j],  strlen(environ[j]));

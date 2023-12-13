@@ -39,8 +39,12 @@ void execmd(char **tokens)
 		if (WIFEXITED(status))
 		{
 			exit_status = WIFEXITED(status);
-			if (exit_status > 0 && (!isatty(STDIN_FILENO)))
-				exit(exit_status);
+			if (exit_status != 0 && (!isatty(STDIN_FILENO)))
+			{
+				/*exit(exit_status);*/
+				  exit_status = exit_status;
+			}
+				/*exit(exit_status);*/
 		}
 	}
 }

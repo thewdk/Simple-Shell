@@ -68,7 +68,7 @@ char *dtstrcpy(char *strng, int x)
 	int y;
 	char *res;
 
-	res = _malloc(sizeof(res) * (x + 1));
+	res = malloc(sizeof(res) * (x + 1));
 	if (res == NULL)
 		return (NULL);
 	for (y = 0; y < x; y++)

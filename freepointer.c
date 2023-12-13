@@ -2,7 +2,7 @@
 
 /**
  * freepointer - Free memory associated with an array of strings.
- * @argv: Array of strings to be freed.
+ * @tokens: Array of strings to be freed.
  */
 
 void freepointer(char **tokens)

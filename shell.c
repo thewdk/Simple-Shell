@@ -1,9 +1,8 @@
 #include "shell.h"
-
+int main(int argc, char **argv);
 /**
  * main - Entry point for the shell program.
  * @argc: Number of command-line arguments.
- B
  * @argv: Array of command-line arguments.
  * Return: Always 0.
  */

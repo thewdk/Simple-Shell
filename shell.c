@@ -43,6 +43,11 @@ int main(int argc, char **argv)
 		token = strtok(line, " \n");
 		while (token != NULL)
 		{
+			if (token[0] == '#')
+			{
+				tokens[i] = NULL;
+				break;
+			}
 			tokens[i] = malloc(sizeof(char) * (strlen(token) + 1));
 			strcpy(tokens[i], token);
 			i++;

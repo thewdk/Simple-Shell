@@ -23,6 +23,10 @@ int valid_exit_status(const char *str);
 char *_getenv(const char *name);
 int _setenv(const char *name, const char *value, int overwrite);
 int _unsetenv(const char *name);
+
+/* ---------------strings--------------- */
+int dtstrlen(char *str);
+int dtstrcmp(char *str1, char *str2);
 char *dtstrtok(char *str, const char *delimiters);
 char *dtstrchr(const char *str, int ch);
 

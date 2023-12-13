@@ -29,5 +29,6 @@ int dtstrlen(char *str);
 int dtstrcmp(char *str1, char *str2);
 char *dtstrtok(char *str, const char *delimiters);
 char *dtstrchr(const char *str, int ch);
+char *dtstrcpy(char *strng, int x);
 
 #endif

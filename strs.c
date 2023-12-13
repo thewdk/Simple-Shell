@@ -21,3 +21,38 @@ str++;
 }
 return (NULL);
 }
+
+
+/**
+* dtstrlen - calculates a length of a given string
+* @str: pointer to chars
+* Return: lenght of string
+**/
+int dtstrlen(char *str)
+{
+	int len;
+
+	for (len = 0; str[len] != '\0'; len++)
+		;
+	return (len);
+}
+
+/**
+* dtstrcmp - compares two strings
+* @str1: string 1
+* @str2: string 2
+* Return: if both strings are same 0, else -1
+**/
+int dtstrcmp(char *str1, char *str2)
+{
+	int i;
+
+	for (i = 0; str1[i] != '\0' || str2[i] != '\0'; i++)
+	{
+		if (str1[i] == '\0')
+			return (1);
+		if (str1[i] != str2[i])
+			return (-1);
+	}
+	return (0);
+}

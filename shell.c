@@ -21,7 +21,6 @@ int main(int argc, char **argv)
 	(void)argc;
 	(void)argv;
 
-	tokens = NULL;
 	while (1)
 	{
 		tokens = malloc(sizeof(char *) * 3000);
